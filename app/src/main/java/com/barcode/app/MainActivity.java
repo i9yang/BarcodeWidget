@@ -6,26 +6,38 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+import com.barcode.app.util.BarcodeUtil;
+import com.google.zxing.BarcodeFormat;
 import org.apache.commons.lang3.StringUtils;
 
 public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Fabric.with(this, new Crashlytics());
 		setContentView(R.layout.main_activity);
 
 		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		TextView tv = (TextView) findViewById(R.id.barcodeNoText);
-		tv.setText(sharedPref.getString(getString(R.string.barcodeNo), ""));
+		ImageView iv = (ImageView) findViewById(R.id.barcodeImage);
+		String barcodeNo = sharedPref.getString(getString(R.string.barcodeNo), "");
+
+		try {
+			if (StringUtils.isNotEmpty(barcodeNo)) {
+				tv.setText(barcodeNo);
+				Bitmap bitmap = BarcodeUtil.encodeAsBitmap(barcodeNo, BarcodeFormat.CODE_128, 700, 300);
+				iv.setImageBitmap(bitmap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void saveBarcodeNo(View v) {
@@ -51,8 +63,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-    public void forceCrash(View view) {
+	public void forceCrash(View view) {
         throw new RuntimeException("This is a crash");
     }
-
 }
