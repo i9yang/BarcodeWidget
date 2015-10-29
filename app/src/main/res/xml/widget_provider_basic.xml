@@ -2,6 +2,6 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/widget_activity"
     android:minHeight="72dp"
-    android:minWidth="146dp"
+    android:minWidth="368dp"
     android:resizeMode="horizontal|vertical"
 	android:updatePeriodMillis="0"/>

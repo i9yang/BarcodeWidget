@@ -2,15 +2,16 @@ package com.barcode.app;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import org.apache.commons.lang3.StringUtils;
 
 public class WidgetProvider extends AppWidgetProvider {
 	@Override
@@ -22,8 +23,6 @@ public class WidgetProvider extends AppWidgetProvider {
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-		appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, getClass()));
-
 		for (int i = 0; i < appWidgetIds.length; i++) {
 			updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
 		}
@@ -31,10 +30,16 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	public void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 		try {
-			Bitmap bitmap = encodeAsBitmap("7578117104576120", BarcodeFormat.CODE_128, 600, 300);
-			RemoteViews v = new RemoteViews(context.getPackageName(), R.layout.widget_activity);
-			v.setImageViewBitmap(R.id.barcode, bitmap);
-			appWidgetManager.updateAppWidget(appWidgetId, v);
+
+			SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+			String barcodeNo = sharedPref.getString(context.getString(R.string.barcodeNo), "");
+
+			if (StringUtils.isNotEmpty(barcodeNo)) {
+				Bitmap bitmap = encodeAsBitmap(barcodeNo, BarcodeFormat.CODE_128, 700, 300);
+				RemoteViews v = new RemoteViews(context.getPackageName(), R.layout.widget_activity);
+				v.setImageViewBitmap(R.id.barcode, bitmap);
+				appWidgetManager.updateAppWidget(appWidgetId, v);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
