@@ -11,7 +11,7 @@
 	          android:layout_height="50dp"
 	          android:textSize="45dp"
 	          android:id="@+id/barcodeNoText"
-			/>
+	/>
 	<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -22,13 +22,31 @@
 		          android:inputType="number"
 		          android:id="@+id/barcodeNo"
 		          android:ems="10"
-				/>
+		/>
 		<Button android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:id="@+id/btnBarcodeNo"
+		        android:id="@+id/btnBarcodeNoSubmit"
 		        android:text="Submit"
 		        android:onClick="saveBarcodeNo"
-				/>
+		/>
+	</LinearLayout>
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:orientation="horizontal">
+		<Button android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/btnBarcodeScanFromPhoto"
+		        android:text="Photo Scan"
+		        android:onClick="scanBarcodeNoFromPhoto"
+		/>
+		<Button android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/btnBarcodeScanFromCamera"
+		        android:text="Camera Scan"
+		        android:onClick="scanBarcodeNoFromCamera"
+		/>
 	</LinearLayout>
 	<ImageView
 			android:id="@+id/barcodeImage"
@@ -36,7 +54,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center|top"
 			android:layout_margin="10dp"
-			/>
+	/>
 	<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
