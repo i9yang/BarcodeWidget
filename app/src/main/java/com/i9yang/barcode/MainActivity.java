@@ -1,4 +1,4 @@
-package com.barcode.app;
+package com.i9yang.barcode;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,7 +6,10 @@ import android.appwidget.AppWidgetManager;
 import android.content.*;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
@@ -14,16 +17,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.barcode.app.util.BarcodeUtil;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.i9yang.barcode.util.BarcodeUtil;
 import io.fabric.sdk.android.Fabric;
-import org.apache.commons.lang3.StringUtils;
 
 public class MainActivity extends Activity {
 	@Override
@@ -33,11 +37,15 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main_activity);
 
 		init();
+
+		AdRequest adRequest = new AdRequest.Builder().addTestDevice("00e9bd128078a137").build();
+		AdView adView = (AdView) this.findViewById(R.id.adView);
+		adView.loadAd(adRequest);
 	}
 
 	public void saveBarcodeNo(View v) {
 		EditText et = (EditText) findViewById(R.id.barcodeNo);
-		if (StringUtils.isNotEmpty(et.getText())) {
+		if (!TextUtils.isEmpty(et.getText())) {
 			changeBarcode(et.getText().toString());
 		}
 	}
@@ -46,7 +54,6 @@ public class MainActivity extends Activity {
 
 	public void scanBarcodeNoFromCamera(View v) {
 		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-		scanIntegrator.setOrientationLocked(false);
 		scanIntegrator.initiateScan();
 	}
 
@@ -63,9 +70,9 @@ public class MainActivity extends Activity {
 		if (requestCode == PICK_FROM_GALLERY) {
 			if (resultCode == Activity.RESULT_OK) {
 				try {
-					Bitmap barCodeimg = BitmapFactory.decodeStream(getContentResolver().openInputStream(intent.getData()));
+					Bitmap barcodeImg = BitmapFactory.decodeStream(getContentResolver().openInputStream(intent.getData()));
 					BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this).build();
-					Frame myFrame = new Frame.Builder().setBitmap(barCodeimg).build();
+					Frame myFrame = new Frame.Builder().setBitmap(barcodeImg).build();
 
 					SparseArray<Barcode> barcodes = barcodeDetector.detect(myFrame);
 
@@ -83,7 +90,7 @@ public class MainActivity extends Activity {
 			}
 		}
 
-		if (StringUtils.isNotEmpty(barcode)) {
+		if (!TextUtils.isEmpty(barcode)) {
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 			alertDialog.setTitle("바코드 교체?");
 			alertDialog.setMessage(barcode);
@@ -134,7 +141,7 @@ public class MainActivity extends Activity {
 		et.setText("");
 
 		try {
-			if (StringUtils.isNotEmpty(barcodeNo)) {
+			if (!TextUtils.isEmpty(barcodeNo)) {
 				tv.setText(barcodeNo);
 				Bitmap bitmap = BarcodeUtil.encodeAsBitmap(barcodeNo, BarcodeFormat.CODE_128, 700, 300);
 				iv.setImageBitmap(bitmap);
@@ -146,5 +153,11 @@ public class MainActivity extends Activity {
 
 	public void forceCrash(View view) {
 		throw new RuntimeException("This is a crash");
+	}
+
+	public void call(View view) {
+		Uri number = Uri.parse("tel:5551234");
+		Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+		startActivity(callIntent);
 	}
 }

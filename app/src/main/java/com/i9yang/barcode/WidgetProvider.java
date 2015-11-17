@@ -1,4 +1,4 @@
-package com.barcode.app;
+package com.i9yang.barcode;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.widget.RemoteViews;
-import com.barcode.app.util.BarcodeUtil;
 import com.google.zxing.BarcodeFormat;
-import org.apache.commons.lang3.StringUtils;
+import com.i9yang.barcode.util.BarcodeUtil;
 
 public class WidgetProvider extends AppWidgetProvider {
 	@Override
@@ -31,7 +31,7 @@ public class WidgetProvider extends AppWidgetProvider {
 			SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 			String barcodeNo = sharedPref.getString(context.getString(R.string.barcodeNo), "");
 
-			if (StringUtils.isNotEmpty(barcodeNo)) {
+			if (! TextUtils.isEmpty(barcodeNo)) {
 				Bitmap bitmap = BarcodeUtil.encodeAsBitmap(barcodeNo, BarcodeFormat.CODE_128, 700, 300);
 				RemoteViews v = new RemoteViews(context.getPackageName(), R.layout.widget_activity);
 				v.setImageViewBitmap(R.id.barcode, bitmap);
@@ -56,4 +56,6 @@ public class WidgetProvider extends AppWidgetProvider {
 	public void onDeleted(Context context, int[] appWidgetIds) {
 		super.onDeleted(context, appWidgetIds);
 	}
+
+
 }

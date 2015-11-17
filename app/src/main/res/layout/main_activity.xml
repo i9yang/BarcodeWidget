@@ -1,65 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/container"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              tools:context=".MainActivity">
-	<TextView android:layout_width="wrap_content"
-	          android:layout_height="50dp"
-	          android:textSize="45dp"
-	          android:id="@+id/barcodeNoText"
-	/>
-	<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center_horizontal"
-			android:orientation="horizontal">
-		<EditText android:layout_width="wrap_content"
-		          android:layout_height="wrap_content"
-		          android:inputType="number"
-		          android:id="@+id/barcodeNo"
-		          android:ems="10"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:keepScreenOn="true">
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	              xmlns:tools="http://schemas.android.com/tools"
+	              android:id="@+id/container"
+	              android:layout_width="match_parent"
+	              android:layout_height="match_parent"
+	              android:orientation="vertical"
+	              android:gravity="center_horizontal"
+	              android:paddingRight="5px"
+	              tools:context=".MainActivity">
+		<TextView android:layout_width="wrap_content"
+		          android:layout_height="50dp"
+		          android:textSize="45dp"
+		          android:id="@+id/barcodeNoText"
 		/>
-		<Button android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:id="@+id/btnBarcodeNoSubmit"
-		        android:text="Submit"
-		        android:onClick="saveBarcodeNo"
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:orientation="horizontal">
+			<EditText android:layout_width="wrap_content"
+			          android:layout_height="wrap_content"
+			          android:inputType="number"
+			          android:hint="barcodeNo"
+			          android:id="@+id/barcodeNo"
+			          android:ems="10"
+			/>
+			<Button android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:id="@+id/btnBarcodeNoSubmit"
+			        android:text="Submit"
+			        android:onClick="saveBarcodeNo"
+			/>
+		</LinearLayout>
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:orientation="horizontal">
+			<Button android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:id="@+id/btnBarcodeScanFromPhoto"
+			        android:text="Photo Scan"
+			        android:onClick="scanBarcodeNoFromPhoto"
+			/>
+			<Button android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:id="@+id/btnBarcodeScanFromCamera"
+			        android:text="Camera Scan"
+			        android:onClick="scanBarcodeNoFromCamera"
+			/>
+		</LinearLayout>
+		<ImageView
+				android:id="@+id/barcodeImage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center|top"
+				android:layout_margin="10dp"
 		/>
+		<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Force Crash!"
+				android:onClick="forceCrash"
+				android:layout_centerVertical="true"
+				android:layout_centerHorizontal="true"/>
+		<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Call!!"
+				android:onClick="call"
+				android:layout_centerVertical="true"
+				android:layout_centerHorizontal="true"/>
+		<com.google.android.gms.ads.AdView
+				xmlns:ads="http://schemas.android.com/apk/res-auto"
+				android:id="@+id/adView"
+				ads:adUnitId="ca-app-pub-5626358423596102/7326571677"
+				ads:adSize="BANNER"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
 	</LinearLayout>
-	<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center_horizontal"
-			android:orientation="horizontal">
-		<Button android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:id="@+id/btnBarcodeScanFromPhoto"
-		        android:text="Photo Scan"
-		        android:onClick="scanBarcodeNoFromPhoto"
-		/>
-		<Button android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:id="@+id/btnBarcodeScanFromCamera"
-		        android:text="Camera Scan"
-		        android:onClick="scanBarcodeNoFromCamera"
-		/>
-	</LinearLayout>
-	<ImageView
-			android:id="@+id/barcodeImage"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center|top"
-			android:layout_margin="10dp"
-	/>
-	<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="Force Crash!"
-			android:onClick="forceCrash"
-			android:layout_centerVertical="true"
-			android:layout_centerHorizontal="true"/>
-</LinearLayout>
+</ScrollView>

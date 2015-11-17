@@ -1,4 +1,4 @@
-package com.barcode.app.util;
+package com.i9yang.barcode.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

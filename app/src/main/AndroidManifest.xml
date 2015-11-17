@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.barcode.app">
+          package="com.i9yang.barcode">
 
-	<uses-sdk android:targetSdkVersion="22"/>
+	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="22"/>
 	<application
 			android:allowBackup="true"
 			android:icon="@mipmap/ic_launcher"
 			android:label="@string/app_name"
 			android:theme="@style/AppTheme"
-			>
+	>
 		<activity
-				android:name=".MainActivity"
+				android:name="com.i9yang.barcode.MainActivity"
 				android:label="@string/app_name"
 				android:windowSoftInputMode="stateAlwaysVisible"
 				android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -20,7 +20,7 @@
 			</intent-filter>
 		</activity>
 		<receiver
-				android:name=".WidgetProvider"
+				android:name="com.i9yang.barcode.WidgetProvider"
 				android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -29,12 +29,22 @@
 					android:name="android.appwidget.provider"
 					android:resource="@xml/widget_provider_basic"/>
 		</receiver>
-		<meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
-	    <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="f138dc66eff832bf50624bb54b778339b216e5ef" />
-    </application>
+		<meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
+		           android:value="barcode"/>
+		<meta-data
+				android:name="io.fabric.ApiKey"
+				android:value="f138dc66eff832bf50624bb54b778339b216e5ef"/>
+		<meta-data
+				android:name="com.google.android.gms.version"
+				android:value="@integer/google_play_services_version"/>
+		<activity
+				android:name="com.google.android.gms.ads.AdActivity"
+				android:theme="@android:style/Theme.Translucent"
+				android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
+	</application>
 
-    <uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>

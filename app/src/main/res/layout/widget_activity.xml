@@ -14,5 +14,6 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center|top"
 			android:layout_margin="10dp"
+	        android:onClick="scanBarcodeNoFromCamera"
 			/>
 </LinearLayout>
