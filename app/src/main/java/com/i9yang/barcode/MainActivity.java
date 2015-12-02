@@ -6,10 +6,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.*;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
@@ -30,6 +28,8 @@ import com.i9yang.barcode.util.BarcodeUtil;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity {
+	private final int PICK_FROM_GALLERY = 999;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,8 +49,6 @@ public class MainActivity extends Activity {
 			changeBarcode(et.getText().toString());
 		}
 	}
-
-	private final int PICK_FROM_GALLERY = 999;
 
 	public void scanBarcodeNoFromCamera(View v) {
 		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
@@ -151,13 +149,8 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void forceCrash(View view) {
-		throw new RuntimeException("This is a crash");
-	}
-
-	public void call(View view) {
-		Uri number = Uri.parse("tel:5551234");
-		Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-		startActivity(callIntent);
+	public void goExam(View v) {
+		Intent intent = new Intent(this, ExamActivity.class);
+		startActivity(intent);
 	}
 }

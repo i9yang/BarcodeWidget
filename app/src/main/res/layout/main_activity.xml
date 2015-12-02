@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
             android:keepScreenOn="true">
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	              xmlns:tools="http://schemas.android.com/tools"
-	              android:id="@+id/container"
+	<LinearLayout android:id="@+id/container"
 	              android:layout_width="match_parent"
 	              android:layout_height="match_parent"
 	              android:orientation="vertical"
@@ -64,17 +63,11 @@
 		<Button
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:text="Force Crash!"
-				android:onClick="forceCrash"
+				android:text="go Exam"
+				android:onClick="goExam"
 				android:layout_centerVertical="true"
-				android:layout_centerHorizontal="true"/>
-		<Button
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Call!!"
-				android:onClick="call"
-				android:layout_centerVertical="true"
-				android:layout_centerHorizontal="true"/>
+				android:layout_centerHorizontal="true"
+				android:layout_margin="30dp"/>
 		<com.google.android.gms.ads.AdView
 				xmlns:ads="http://schemas.android.com/apk/res-auto"
 				android:id="@+id/adView"

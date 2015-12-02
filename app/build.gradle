@@ -20,15 +20,13 @@ repositories {
 android {
 	compileSdkVersion 22
 	buildToolsVersion "22.0.1"
-
 	defaultConfig {
 		applicationId "com.i9yang.barcode"
-		minSdkVersion 10
+		minSdkVersion 11
 		targetSdkVersion 22
 		versionCode 1
 		versionName "1.0"
 	}
-
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_1_6
 		targetCompatibility JavaVersion.VERSION_1_6
@@ -38,6 +36,8 @@ android {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
+	}
+	productFlavors {
 	}
 }
 
