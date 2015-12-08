@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orientation="horizontal"
+		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:background="#666666">
@@ -12,5 +12,19 @@
 			android:text="@string/portrait_message"
 			android:textColor="#000000"
 			android:textSize="20px"/>
-	<!-- More GUI components go here -->
+
+	<Button android:id="@+id/start"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/start_note"/>
+	<Button android:id="@+id/cancel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/cancel_note"/>
+
+	<Button android:id="@+id/update"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/update_note"/>
+
 </LinearLayout>

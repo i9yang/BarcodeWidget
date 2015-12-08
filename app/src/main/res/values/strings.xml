@@ -9,4 +9,13 @@
 	<string name="landscape_message">This is Landscape mode fragment</string>
 	<string name="portrait_message">This is Portrait mode fragment</string>
 
+	<string name="start_browser_a">Start Browser with VIEW action</string>
+	<string name="start_browser_b">Start Browser with LAUNCH action</string>
+	<string name="start_browser_c">Exception Condition</string>
+
+	<string name="start_note">Start Notification</string>
+	<string name="cancel_note">Cancel Notification</string>
+	<string name="update_note">Update Notification</string>
+
+
 </resources>

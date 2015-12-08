@@ -28,8 +28,7 @@ public class ExamActivity extends Activity {
 	}
 
 	public void broadcastIntent(View view) {
-		Intent intent = new Intent();
-		intent.setAction("com.i9yang.CUSTOM_INTENT");
+		Intent intent = new Intent("com.i9yang.CUSTOM_INTENT");
 		sendBroadcast(intent);
 	}
 

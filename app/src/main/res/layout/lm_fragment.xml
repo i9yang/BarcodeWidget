@@ -12,5 +12,18 @@
 			android:text="@string/landscape_message"
 			android:textColor="#000000"
 			android:textSize="20px"/>
-	<!-- More GUI components go here -->
+	<Button android:id="@+id/start_browser_a"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/start_browser_a"/>
+	<Button android:id="@+id/start_browser_b"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/start_browser_b"/>
+
+	<Button android:id="@+id/start_browser_c"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/start_browser_c"/>
+
 </LinearLayout>
