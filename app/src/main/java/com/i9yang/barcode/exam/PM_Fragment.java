@@ -65,7 +65,7 @@ public class PM_Fragment extends Fragment {
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 		mBuilder.setContentTitle(title);
 		mBuilder.setContentText(text);
-		mBuilder.setSmallIcon(R.drawable.ic_launcher);
+		mBuilder.setSmallIcon(R.mipmap.ic_launcher);
 		mBuilder.setNumber(++numMessages);
 
 		NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();

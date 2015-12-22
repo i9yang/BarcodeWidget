@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_id": "i9yang-5bd70",
+    "project_number": "320736885254",
+    "name": "i9yang"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320736885254:android:92aa26e7da7d45b6",
+        "client_id": "android:com.i9yang.barcode",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.i9yang.barcode"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

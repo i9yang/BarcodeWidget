@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
 		AdRequest adRequest = new AdRequest.Builder().addTestDevice("00e9bd128078a137").build();
 		AdView adView = (AdView) this.findViewById(R.id.adView);
 		adView.loadAd(adRequest);
+
 	}
 
 	public void saveBarcodeNo(View v) {
@@ -151,6 +152,11 @@ public class MainActivity extends Activity {
 
 	public void goExam(View v) {
 		Intent intent = new Intent(this, ExamActivity.class);
+		startActivity(intent);
+	}
+
+	public void goGcm(View v) {
+		Intent intent = new Intent(this, GcmActivity.class);
 		startActivity(intent);
 	}
 }

@@ -68,6 +68,14 @@
 				android:layout_centerVertical="true"
 				android:layout_centerHorizontal="true"
 				android:layout_margin="30dp"/>
+		<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="go Gcm"
+				android:onClick="goGcm"
+				android:layout_centerVertical="true"
+				android:layout_centerHorizontal="true"
+				android:layout_margin="30dp"/>
 		<com.google.android.gms.ads.AdView
 				xmlns:ads="http://schemas.android.com/apk/res-auto"
 				android:id="@+id/adView"
