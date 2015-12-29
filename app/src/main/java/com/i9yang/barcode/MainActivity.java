@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.*;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.SparseArray;
@@ -26,6 +27,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.i9yang.barcode.util.BarcodeUtil;
 import io.fabric.sdk.android.Fabric;
+
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
 	private final int PICK_FROM_GALLERY = 999;
@@ -90,26 +93,49 @@ public class MainActivity extends Activity {
 		}
 
 		if (!TextUtils.isEmpty(barcode)) {
-			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-			alertDialog.setTitle("바코드 교체?");
-			alertDialog.setMessage(barcode);
+			String regex = "\\b(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 			final String result = barcode;
 
-			alertDialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					changeBarcode(result);
-				}
-			});
+			if(Pattern.matches(regex, barcode)) {
+				alertDialog.setTitle(barcode + " 로 이동?");
 
-			alertDialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.cancel();
-				}
-			});
+				alertDialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(result));
+						startActivity(i);
+					}
+				});
 
-			alertDialog.create();
-			alertDialog.show();
+				alertDialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+
+				alertDialog.create();
+				alertDialog.show();
+			} else {
+				alertDialog.setTitle("바코드 교체?");
+				alertDialog.setMessage(barcode);
+
+				alertDialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						changeBarcode(result);
+					}
+				});
+
+				alertDialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+
+				alertDialog.create();
+				alertDialog.show();
+			}
+
 		}
 	}
 

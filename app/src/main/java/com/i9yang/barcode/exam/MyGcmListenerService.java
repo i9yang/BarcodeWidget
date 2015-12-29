@@ -78,7 +78,6 @@ public class MyGcmListenerService extends GcmListenerService {
 	    Gson gson = new Gson();
 
 	    Map msg = gson.fromJson(message, HashMap.class);
-	    System.out.println(msg);
 	    Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher)
