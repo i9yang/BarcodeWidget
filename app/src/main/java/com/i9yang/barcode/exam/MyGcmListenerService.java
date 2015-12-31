@@ -11,78 +11,52 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.i9yang.barcode.MainActivity;
 import com.i9yang.barcode.R;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MyGcmListenerService extends GcmListenerService {
-
-    private static final String TAG = "MyGcmListenerService";
-
-    /**
-     * Called when message is received.
-     *
-     * @param from SenderID of the sender.
-     * @param data Data bundle containing message data as key/value pairs.
-     *             For Set of keys use data.keySet().
-     */
-    // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message);
 
-        if (from.startsWith("/topics/")) {
-            // message received from some topic.
-        } else {
-            // normal downstream message.
-        }
-
-        // [START_EXCLUDE]
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
-         */
-
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
-         */
-        sendNotification(message);
-        // [END_EXCLUDE]
-    }
-    // [END receive_message]
-
-    /**
-     * Create and show a simple notification containing the received GCM message.
-     *
-     * @param message GCM message received.
-     */
-    private void sendNotification(String message) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-	    SimpleDateFormat dateFormat = new  SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault());
+	    HashMap<String, String> msgMap = new HashMap<String, String>();
+		SimpleDateFormat dateFormat = new  SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault());
 		Date date = new Date();
 		String strDate = dateFormat.format(date);
+	    msgMap.put("date", strDate);
 
 	    Gson gson = new Gson();
+	    Type type = new TypeToken<Map<String, String>>(){}.getType();
+	    Map<String, String> msg = gson.fromJson(message, type);
 
-	    Map msg = gson.fromJson(message, HashMap.class);
+        if (from.startsWith("/topics/weather")) {
+            msgMap.put("title",strDate + " 의 날씨");
+	        msgMap.put("text", msg.get("text") + " ( " + msg.get("temp")+ " )" );
+        } else if (from.startsWith("/topics/torrent")) {
+            msgMap.put("title", strDate + " : " + msg.get("title"));
+	        msgMap.put("text", msg.get("text"));
+        }
+
+	    sendNotification(msgMap);
+    }
+
+    private void sendNotification(HashMap<String, String> msgMap) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent, PendingIntent.FLAG_ONE_SHOT);
+
 	    Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle(strDate + " 의 날씨")
-                .setContentText(msg.get("text") + " ( " + msg.get("temp")+ " )")
+                .setContentTitle(msgMap.get("title"))
+                .setContentText(msgMap.get("text"))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
@@ -90,7 +64,7 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(0, notificationBuilder.build());
     }
 }
 
