@@ -14,11 +14,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.i9yang.barcode.MainActivity;
 import com.i9yang.barcode.R;
+import com.i9yang.barcode.weather.Weather;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+import org.joda.time.DateTime;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -26,8 +33,8 @@ public class MyGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
 
-	    HashMap<String, String> msgMap = new HashMap<String, String>();
-		SimpleDateFormat dateFormat = new  SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault());
+	    HashMap<String, String> msgMap = new HashMap<>();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault());
 		Date date = new Date();
 		String strDate = dateFormat.format(date);
 	    msgMap.put("date", strDate);
@@ -45,6 +52,26 @@ public class MyGcmListenerService extends GcmListenerService {
         }
 
 	    sendNotification(msgMap);
+
+	    Realm realm = Realm.getInstance(this);
+	    realm.beginTransaction();
+	    DateTime dateTime = new DateTime(date);
+	    dateTime = dateTime.minusDays(7);
+	    RealmResults<Weather> result = realm.where(Weather.class).lessThan("date", dateTime.toDate()).findAll();
+		result.clear();
+	    realm.commitTransaction();
+
+	    Long seq = (Long) realm.where(Weather.class).max("seq");
+
+	    seq = seq == null ? 0 : seq;
+	    realm.beginTransaction();
+	    Weather weather = realm.createObject(Weather.class);
+	    weather.setSeq(seq+1);
+	    weather.setDate(date);
+	    weather.setText(msg.get("text"));
+	    weather.setTemperature(msg.get("temp"));
+	    realm.commitTransaction();
+
     }
 
     private void sendNotification(HashMap<String, String> msgMap) {

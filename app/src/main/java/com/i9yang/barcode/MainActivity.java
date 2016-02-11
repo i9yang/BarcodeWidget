@@ -45,6 +45,11 @@ public class MainActivity extends Activity {
 		AdView adView = (AdView) this.findViewById(R.id.adView);
 		adView.loadAd(adRequest);
 
+		AppWidgetManager mgr = AppWidgetManager.getInstance(this);
+		Intent update = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+		update.setClass(this, WidgetProvider.class);
+		update.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, mgr.getAppWidgetIds(new ComponentName(this, WidgetProvider.class)));
+		this.sendBroadcast(update);
 	}
 
 	public void saveBarcodeNo(View v) {
@@ -183,6 +188,11 @@ public class MainActivity extends Activity {
 
 	public void goGcm(View v) {
 		Intent intent = new Intent(this, GcmActivity.class);
+		startActivity(intent);
+	}
+
+	public void goWeatherList(View v) {
+		Intent intent = new Intent(this, WeatherActivity.class);
 		startActivity(intent);
 	}
 }

@@ -52,6 +52,12 @@
 			        android:text="Camera Scan"
 			        android:onClick="scanBarcodeNoFromCamera"
 			/>
+			<Button android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:id="@+id/btnWeatherList"
+			        android:text="Weather List"
+			        android:onClick="goWeatherList"
+			/>
 		</LinearLayout>
 		<ImageView
 				android:id="@+id/barcodeImage"

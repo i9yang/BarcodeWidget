@@ -28,6 +28,8 @@
 		          android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 		<activity android:name=".GcmActivity"
 		          android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+		<activity android:name=".WeatherActivity"
+		          android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
 		<activity android:name="com.i9yang.barcode.CustomActivity"
 		          android:theme="@style/Theme.AppCompat.Light.NoActionBar">
