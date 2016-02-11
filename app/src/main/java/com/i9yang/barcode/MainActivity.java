@@ -44,12 +44,6 @@ public class MainActivity extends Activity {
 		AdRequest adRequest = new AdRequest.Builder().addTestDevice("00e9bd128078a137").build();
 		AdView adView = (AdView) this.findViewById(R.id.adView);
 		adView.loadAd(adRequest);
-
-		AppWidgetManager mgr = AppWidgetManager.getInstance(this);
-		Intent update = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-		update.setClass(this, WidgetProvider.class);
-		update.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, mgr.getAppWidgetIds(new ComponentName(this, WidgetProvider.class)));
-		this.sendBroadcast(update);
 	}
 
 	public void saveBarcodeNo(View v) {
