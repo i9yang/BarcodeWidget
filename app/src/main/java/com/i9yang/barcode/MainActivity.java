@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.vision.Frame;
@@ -26,7 +25,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.i9yang.barcode.util.BarcodeUtil;
-import io.fabric.sdk.android.Fabric;
 
 import java.util.regex.Pattern;
 
@@ -36,7 +34,6 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Fabric.with(this, new Crashlytics());
 		setContentView(R.layout.main_activity);
 
 		init();
@@ -59,9 +56,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void scanBarcodeNoFromPhoto(View v) {
-		Intent intent = new Intent();
-		intent.setType("image/-");
-		intent.setAction(Intent.ACTION_GET_CONTENT);
+		Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		intent.setType("image/*");
 		startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY);
 	}
 
@@ -142,7 +138,7 @@ public class MainActivity extends Activity {
 		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString(getString(R.string.barcodeNo), result);
-		editor.commit();
+		editor.apply();
 
 		Toast toast = Toast.makeText(getApplicationContext(), "Changed!", Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
