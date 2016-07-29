@@ -22,5 +22,4 @@ public class HelloService extends Service {
 		super.onDestroy();
 		Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
 	}
-
 }

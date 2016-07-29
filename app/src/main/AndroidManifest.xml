@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.i9yang.barcode">
 
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="22"/>
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="23"/>
 	<application
 			android:name=".MyApplication"
 			android:allowBackup="true"
@@ -71,16 +71,13 @@
 		</receiver>
 		<receiver android:name=".exam.HelloReceiver">
 			<intent-filter>
-				<action android:name="com.i9yang.CUSTOM_INTENT">
-				</action>
+				<action android:name="com.i9yang.CUSTOM_INTENT" />
 			</intent-filter>
 		</receiver>
-
 
 		<provider android:name=".exam.HelloProvider"
 		          android:authorities="com.i9yang.barcode">
 		</provider>
-
 
 		<meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
 		           android:value="barcode"/>
@@ -111,16 +108,24 @@
                 <action android:name="com.google.android.gms.iid.InstanceID"/>
             </intent-filter>
         </service>
-		   <service
+       <service
             android:name="com.i9yang.barcode.exam.RegistrationIntentService"
             android:exported="false">
         </service>
+
+        <receiver android:name="com.i9yang.barcode.call.IncomingCallBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="com.i9yang.barcode.call.CallingService"/>
 	</application>
 
 	<uses-permission android:name="android.permission.CAMERA"/>
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
 </manifest>

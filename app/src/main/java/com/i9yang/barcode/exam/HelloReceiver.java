@@ -10,5 +10,4 @@ public class HelloReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		Toast.makeText(context, "Intent Detected.", Toast.LENGTH_LONG).show();
 	}
-
 }

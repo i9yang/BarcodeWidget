@@ -1,9 +1,11 @@
 package com.i9yang.barcode;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.*;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -37,10 +39,16 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main_activity);
 
 		init();
-
+		checkPermission();
 		AdRequest adRequest = new AdRequest.Builder().addTestDevice("00e9bd128078a137").build();
 		AdView adView = (AdView) this.findViewById(R.id.adView);
 		adView.loadAd(adRequest);
+	}
+
+	private void checkPermission() {
+		if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 100);
+		}
 	}
 
 	public void saveBarcodeNo(View v) {
